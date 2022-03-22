@@ -12,6 +12,7 @@ export class WeatherPageComponent implements OnInit {
 
   apiKey: string;
   cityWeather!: infoCityWeather;
+  test: any
 
   constructor(private http: HttpClient) {
     this.apiKey = 'ae374efe8f142af1fb65f793930356fd';
@@ -25,10 +26,12 @@ export class WeatherPageComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.getInfoWeather(this.apiKey).subscribe((data) => console.log(data))
+    this.getInfoWeather(this.apiKey).subscribe((data) => this.test = data)
+
+    console.log(this.test)
   }
 
-  getInfoWeather(apiKey: string) {
+  getInfoWeather(apiKey: string): Observable<any> {
     return this.http.get(`https://api.openweathermap.org/data/2.5/weather?q=moscow&appid=${apiKey}`)
   }
 
