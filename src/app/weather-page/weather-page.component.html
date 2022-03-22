@@ -1,7 +1,63 @@
-<div class="wrapper">
-    <div class="weather-form">
-        <div class="title-city">
-            Moscow
-        </div>
-    </div> 
+<div class="wrapper" *ngIf="cityWeather$ | async as weather">
+    <form>
+        <div class="weather-form">
+            <div class="title-city">
+                {{ weather.name }}
+            </div>
+            <div class="weather-form-head">
+                <mat-form-field appearance="fill">
+                    <mat-label>Сменить город</mat-label>
+                    <mat-select [formControl]="selectControl">
+                      <mat-option *ngFor="let city of favoriteCity" [value]="city">
+                        {{ city.viewValue }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <div class="currentPosition" (click)="currentPositionWeather()">📍Мое месторасположение</div>
+                  <div class="toggleDegree">
+                    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                      <mat-button-toggle (click)="changeDegree()">F°</mat-button-toggle>
+                      <mat-button-toggle (click)="changeDegree()">C°</mat-button-toggle>
+                    </mat-button-toggle-group>
+                  </div>
+            </div>
+            <div class="weather-form-body">
+              <div *ngFor="let value of weather.weather">
+                <img [src]="getImg(value.icon)" width='300px'>
+                <div class="weatherDescription">{{ value.description | titlecase}}</div>
+              </div>
+              <div class="tempTitle" *ngIf="isChangeDegree; else cDegree">
+                {{ getF( weather.main.temp ) }}°
+              </div>
+              <ng-template #cDegree>
+                <div class="tempTitle">
+                  {{ getC( weather.main.temp ) }}°
+                </div>
+              </ng-template>
+            </div>
+          
+            <div class="weather-form-footer">
+              <div>
+                <p>Ветер</p>
+                {{ weather.wind.speed }} м/с 
+              </div>
+
+              <div>
+                <p>Давление</p>
+                {{ weather.main.pressure }} мм рт.ст.
+              </div>
+
+              <div>
+                <p>Влажность</p>
+                {{ weather.main.humidity }}%
+              </div>
+
+              <div>
+                <p>Вероятность дождя</p>
+                {{ weather.clouds.all }}%
+              </div>
+            </div>
+      
+        </div> 
+    </form>
 </div>

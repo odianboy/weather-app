@@ -1,7 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 .wrapper {
     color: #fff;
+    margin: auto;
+    font-family: 'Fredoka', sans-serif;
+
+    padding: 50px 50px;
 
     .title-city {
-        font-size: 50px;
+        font-size: 25px;
+        margin-bottom: 20px;
     }
+}
+
+.weather-form-head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.weather-form-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.weather-form-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 200px;
+}
+
+.tempTitle {
+    font-size: 100px;
+}
+
+.weatherDescription {
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.currentPosition {
+    font-size: 16px;
 }
