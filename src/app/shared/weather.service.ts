@@ -29,13 +29,12 @@ export class WeatherService {
     });
   }
 
-  getInfoWeatherCurrentPosition(): Observable<any> {
-    this.getPosition()
+  getInfoWeatherCurrentPosition(currentPosition: CurrentPosition): Observable<any> {
 
     return this.http.get<InfoCityWeather>(this.weatherApiUrl, {
       params: new HttpParams()
-        .set('lat', this.currentPosition.latitude)
-        .set('lon', this.currentPosition.longitude)
+        .set('lat', currentPosition.latitude)
+        .set('lon', currentPosition.longitude)
         .set('appid', this.apiKey)
     });
   }
@@ -50,18 +49,5 @@ export class WeatherService {
 
   getСelsiusDegree(scaleK: number) {
     return Math.ceil(scaleK - 273);
-  }
-
-  getPosition(): void {
-    navigator.geolocation.getCurrentPosition(position => {
-
-      this.currentPosition = {
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude
-      }
-      console.log('position', this.currentPosition);
-
-    })
-
   }
 }
